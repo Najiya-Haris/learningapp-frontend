@@ -44,7 +44,7 @@ export default function Userlist() {
 
   const [userData, setUserData] = useState([]);
   const handleAction=async(id)=>{
-    const data={id:id}
+  
     await adminAxiosInstance.put(`/manageuser/${id}`).then((res)=>console.log(res))
     console.log("success");
   }

@@ -8,6 +8,7 @@ import {
     Tooltip,
     Button,
     Input,
+    Spinner,
   } from "@material-tailwind/react";
   import { useLocation,useNavigate } from "react-router-dom";
   import {
@@ -23,20 +24,23 @@ import  {DialogWithForm} from "../User/EditProfile"
 
   export default function BlogCard() {
     const [data,setData]=useState([])
+    console.log(data)
     const [img,setImg]=useState(null)
+    const [loading,setLoading]=useState(false)
     const queryClient=useQueryClient()
     const location = useLocation();
     const id = location.state && location.state.id
     const onSubmit = () => {
         const formData = new FormData();
         formData.append("image", img);
-    
+        setLoading(true)
         userAxiosInstance.post(`/uploadImage/${id}`, formData,{
             headers:{
               "Content-Type":"multipart/form-data"
             }}).then((response) => {
           console.log('works fine',response);
           queryClient.invalidateQueries('repoData')
+          setLoading(false)
         });
       };
     const {isPending,error,dta}=useQuery({
@@ -82,7 +86,7 @@ import  {DialogWithForm} from "../User/EditProfile"
        
           <div className="flex justify-center flex-col"><DialogWithForm name={data.userName} id={data._id}/></div>
           <Input type="file" onChange={(e)=>setImg(e.currentTarget.files[0])}/>
-          <Button className="text-sm px-2 py-1" onClick={onSubmit}>submit</Button>
+          <Button className="text-sm px-2 py-1" onClick={onSubmit}>{loading?<Spinner/> :'submit'}</Button>
         </CardBody>
       </Card>
       </div>

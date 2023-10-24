@@ -8,7 +8,10 @@ import UserProtected from "../../Protected/UserProtected";
 import Otpverification from "../pages/User/Otpverification";
 import Layout from "../pages/User/Layout";
 import UserProfile from "../pages/User/userProfile";
-
+import Coursepage from "../pages/User/Coursepage";
+import SingleCourse from "../pages/User/SingleCourse"
+import Payment from "../pages/User/Payment";
+import SuccessPage from "../pages/User/SuccessPage";
 
 function UseRoutes() {
   return (
@@ -19,12 +22,14 @@ function UseRoutes() {
         <Route path="/otpverication/:id" element={<Otpverification />} />
       </Route>
       <Route element={<UserProtected />}>
-        <Route path="/" element={<Layout />} >
-      
-        <Route index element={<Home />} />
-        <Route path="/userProfile" element={<UserProfile/>} >
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/userProfile" element={<UserProfile />} />
+          <Route path="/coursepage" element={<Coursepage />} />
+          <Route path="/singlecourse/:id" element={<SingleCourse />} />
+          <Route path="/payment/:id" element={<Payment />} />
+          <Route path="/success" element={<SuccessPage />} />
         </Route>
-      </Route>
       </Route>
     </Routes>
   );

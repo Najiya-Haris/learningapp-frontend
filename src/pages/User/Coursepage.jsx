@@ -10,30 +10,22 @@ import {
 } from "@material-tailwind/react";
 import './Home.css';
 import { userAxiosInstance } from '../../api/axios';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
+
 function Home() {
   const [data, setData] = useState([]);
-  const navigate= useNavigate()
-  const handleOnclick=(id)=>{
-  
-    navigate(`/singlecourse/${id}`)
-
-  }
+  const navigate=useNavigate()
 
   useEffect(() => {
+    console.log('ghj');
     userAxiosInstance.get("/course").then((res) => setData(res.data.courseLists));
   }, []);
 
   return (
     <div>
-      <div className='background-container'>
-        <h1 className='main_text'>WELCOME TO THE WORLD OF PROGRAMMING!</h1>
-      </div>
-      <div className='my-5 justify-center flex flex-col'>
-        <div className='flex justify-center'>
-          <Typography variant='h2'>OUR TOP PROGRAM</Typography>
-        </div>
-        <div className='lg:flex lg:flex-wrap justify-center  '>
+      
+     
+        <div className='lg:flex lg:flex-wrap justify-center gap-3'>
           {data.map((item, index) => (
             <Card key={index} className="w-72 mt-6 lg:w-1/3 lg:mt-0">
               <CardHeader floated={false} className="h-40 ">
@@ -47,7 +39,7 @@ function Home() {
                   {item.description}
                 </Typography>
               </CardBody>
-              <CardFooter className="flex justify-center  pt-2">
+              <CardFooter className="flex justify-center gap-7 pt-2">
                 <Tooltip content="Like">
                   <Typography as="a" href="#facebook" variant="lead" color="blue" textGradient>
                     <i className="fab fa-facebook" />
@@ -63,15 +55,13 @@ function Home() {
                     <i className="fab fa-instagram" />
                   </Typography>
                 </Tooltip>
-                <div className="flex justify-center">
-                <Button onClick={()=>handleOnclick(item._id)} className='' color="blue" >Buy This Course</Button> 
-                </div>
+                <Button onClick={()=>navigate('/singlecourse')} color="blue" >Buy This Course</Button> 
               </CardFooter>
             </Card>
           ))}
         </div>
       </div>
-    </div>
+
   );
 }
 
